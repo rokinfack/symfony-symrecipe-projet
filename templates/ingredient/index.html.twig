@@ -1,0 +1,74 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	LISTE DES INGREDIENTS
+{% endblock %}
+
+{% block body %}
+
+	<div class='container my-4'>
+		{% if not ingredients.items is same as ([]) %}
+
+			<h1>Mes ingredients</h1>
+	<a href="{{path('ingredient.new')}}" class="btn btn-primary">
+		Créer un ingrédent
+		</a>
+
+
+       {% for message in app.flashes('succes') %}
+  <div class="alert alert-success mt-4"> {{message}} </div>
+    
+  {% endfor %}
+
+			<div class="count">
+				<h5>il ya
+					{{ ingredients.getTotalItemCount }}
+					ingredients au total</h5>
+			</div>
+			<table class="table table-hover">
+
+				<thead>
+					<tr>
+						<th scope="col">Numéro</th>
+						<th scope="col">Nom</th>
+						<th scope="col">Prix</th>
+						<th scope="col">Edition</th>
+						<th scope="col">Suppression</th>
+						<th scope="col">Date de creation</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for ingredient in ingredients %}
+
+						<tr class="table-primary">
+							<th scope="row"> {{ingredient.id}} </th>
+							<td>
+								{{ingredient.name}}
+							</td>
+							<td>
+								{{ingredient.price}}
+							</td>
+							<td>
+								{{ ingredient.createdAt|date('d/m/y')}}
+							</td>
+							<td>
+								<a href="{{path('ingredient.edit', {id:ingredient.id})}}" class="btn btn-info">Edition</a>
+							</td>
+							<td>
+								<a href="{{path('ingredient.delete',{id:ingredient.id})}}" class="btn btn-warning">Suppression</a>
+							</td>
+
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<div class="navigation d-flex justify-content-center">
+				{{ knp_pagination_render(ingredients) }}
+			</div>
+		</div>
+	{% else %}
+		<P>Il ya plus d'ingredient dans
+		</p>
+    {% endif %}
+	{% endblock %}
