@@ -8,8 +8,6 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class IngredientType extends AbstractType
@@ -23,19 +21,10 @@ class IngredientType extends AbstractType
                 'label'=>'Nom',
                 'label_attr'=>['class'=>'form-label mt-4']
             ])
-            ->add('price', MoneyType::class, [
-                'attr'=>['class'=>'form-control'],
-                'label'=>'Prix',
-                'label_attr'=>['class'=>'form-label mt-4'],
-                'constraints'=>[
-                    new Assert\Positive(),
-                    new Assert\LessThan(200)
-                ]
-            ])
+            ->add('price', MoneyType::class, [])
             ->add('submit' ,SubmitType::class,[ 
-            'attr'=>['class'=>'btn btn-primary mt-4'],
-            'label'=>'Créer mon ingredient',
-           
+            'attr'=>['class'=>'btn btn-primary'],
+            'label'=>'Créer mon ingredient'
             ])
             
         ;

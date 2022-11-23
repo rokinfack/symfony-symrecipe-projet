@@ -34,6 +34,7 @@ class IngredientController extends AbstractController
     public function new(Request $request,ManagerRegistry $doctrine):Response
     {
         $manager=$doctrine->getManager();
+        
         $ingredient= new Ingredient();
 
         $form=$this->createForm(IngredientType::class,$ingredient);

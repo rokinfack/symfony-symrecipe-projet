@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\IngredientRepository;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-
+  
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
 #[UniqueEntity('name')]
 class Ingredient
@@ -24,12 +24,12 @@ class Ingredient
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Assert\NotNull()]
-    #[Assert\Positive()]
+   
     private ?float $price = null;
 
     #[ORM\Column]
     #[Assert\NotNull()]
+    
     private ?\DateTimeImmutable $createdAt = null;
 
     public function __construct()
@@ -76,5 +76,9 @@ class Ingredient
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->name;
     }
 }
