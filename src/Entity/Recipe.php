@@ -17,11 +17,12 @@ class Recipe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\Length(min:2, max:50)]
-    #[Assert\NotBlank]
+  
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min:2, max:50)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]

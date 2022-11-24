@@ -58,18 +58,22 @@ class RecipeController extends AbstractController
     public function update(Recipe $recipe, ManagerRegistry $doctrine, Request $request): Response
     {
         $manager = $doctrine->getManager();
+        
         $form = $this->createForm(RecepeType::class, $recipe);
-        $form->handleRequest($request);
 
-if ($form->isSubmitted() && $form->isValid()) {
-    $recipe=$form->getData();
-    $manager->persist($recipe);
+            $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $recipe=$form->getData();
+        
+        $manager->persist($recipe);
 
-    $this->addFlash('succes', message:'votre ingredient a été  modifié avec succès');
-    $manager->flush();
+        $this->addFlash('succes', message:'votre ingredient a été  modifié avec succès');
+        $manager->flush();
 
-    return $this->redirectToRoute('recette.index');
-}
+        return $this->redirectToRoute('recette.index');
+    }else{
+        
+    }
         $this->addFlash('warning', message: 'recette innexistante');
 
         return $this->render('recipe/edit.html.twig', [

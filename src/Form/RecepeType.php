@@ -13,9 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -29,12 +27,18 @@ class RecepeType extends AbstractType
             [
                 'attr'=>['class'=>'form-control'],
                 'label'=>'Nom',
-                'label_attr'=>['class'=>'form-label mt-4']
+                
+                'label_attr'=>['class'=>'form-label mt-4'],
+                'constraints'=>[
+                    new Assert\Length(['min'=>2, 'max'=>50]),
+                    new Assert\NotBlank()
+                ]
+
             ])
             ->add('time',IntegerType::class,[
                 'attr'=>['class'=>'form-control',
                 'min'=>1,
-                'max'=>1441],
+                'max'=>1440],
                 'label'=>'temps (en minutes',
                 'label_attr'=>['class'=>'form-label mt-4'],
                 'constraints'=>[
@@ -42,12 +46,12 @@ class RecepeType extends AbstractType
                     new Assert\LessThan(1441)
                 ]
             ])
-            ->add('nbPeople',Integer::class,
+            ->add('nbPeople',IntegerType::class,
             [
                 'attr'=>['class'=>'form-control',
-                'min'=>1,
-                'max'=>51],
-                'label'=>'temps (en minutes',
+                'min'=>'1',
+                'max'=>'50'],
+                'label'=>'Nombre de personne',
                 'label_attr'=>['class'=>'form-label mt-4'],
                 'constraints'=>[
                     new Assert\Positive(),
@@ -71,25 +75,23 @@ class RecepeType extends AbstractType
                 'label'=>'Description',
                 'label_attr'=>['class'=>'form-label mt-4'],
                 'constraints'=>[
-                    new Assert\NotBlank,
-                    new Assert\LessThan(255)
+                    new Assert\NotBlank
                 ]
 
             ])
             ->add('isFavorite',CheckboxType::class,[
-                'attr'=>['class'=>'form-control'],
+                'attr'=>['class'=>'form-check-input'],
                 'label'=>'Favoris ?',
                 'label_attr'=>['class'=>'form-label mt-4'],
                 'constraints'=>[
-                    new Assert\NotNull(),
-                   
+                    new Assert\NotNull()
                 ]
             ])
             ->add('price',MoneyType::class,
             [
                 'attr'=>['class'=>'form-control'],
                 'label'=>'Prix',
-                'label_attr'=>['class'=>'form-label mt-4'],
+                'label_attr'=>['class'=>'form-check-label mt-4'],
                 'constraints'=>[
                     new Assert\Positive(),
                     new Assert\LessThan(1001)

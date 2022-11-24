@@ -70,6 +70,8 @@ class IngredientController extends AbstractController
             return $this->redirectToRoute('ingredient.alls');
         }
 
+        
+
         return $this->render('ingredient/edit.html.twig',[
             'form'=>$form->createView()
 
