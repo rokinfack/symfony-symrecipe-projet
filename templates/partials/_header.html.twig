@@ -7,32 +7,47 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home
+          <a class="nav-link active" href=" {{path('home.index')}} ">Accueil
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href=" {{path('ingredient.alls')}} ">Ingrédients</a>
+          <a class="nav-link" href=" {{path('ingredient.alls')}} ">Mes ingrédients</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href=" {{path('recette.index')}} ">Recettes</a>
+          <a class="nav-link" href=" {{path('recette.index')}} ">Mes recettes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href=" {{path('ingredient.new')}} ">New </a>
+          <a class="nav-link" href=" {{path('ingredient.new')}} ">Ajouter une recette </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href=" {{path('security.login')}} ">Connexion</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <li class="nav-item">
+          <a class="nav-link" href=" {{path('security.registration')}} ">Inscription</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href=" {{path('security.logout')}} ">Déconnexion </a>
+        </li>
+        <li class="nav-item">
+         {% if app.user %}
+          <a class="nav-link" href="  {{path('user.edit', {id:app.user.id})}}  ">Modifier mes informations</a>
+        </li>
+       
+         <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> {{app.user.fullName}} </a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href=" {{path('user.edit', {id:app.user.id})}} ">Modifier mes informatios</a>
+            <a class="dropdown-item" href="#">Modifier mon mot de passe</a>
             <a class="dropdown-item" href="#">Something else here</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
+            <a class="dropdown-item" href="#">Déconnexion</a>
           </div>
         </li>
+        
+        {% endif %}
+        
+       
       </ul>
       <form class="d-flex">
         <input class="form-control me-sm-2" type="text" placeholder="Search">

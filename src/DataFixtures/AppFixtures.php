@@ -4,21 +4,22 @@ namespace App\DataFixtures;
 
 
 use Faker\Factory;
+use App\Entity\User;
 use Faker\Generator;
 use App\Entity\Recipe;
 use App\Entity\Ingredient;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     private Generator $faker;
-    public function __construct()
+    public function __construct(private UserPasswordHasherInterface $hasher)
     {
         $this->faker= Factory::create('fr-FR');
     }
-   
-    public function load(ObjectManager $manager): void
+    public function load(ObjectManager $manager,): void
     {
         //ingredient
         $ingredients=[];
@@ -51,6 +52,17 @@ class AppFixtures extends Fixture
 
                 $manager->persist($recipe);
         }  
+        //user
+        for ($i=0; $i <10 ; $i++) { 
+            $user=new User();
+            $user->setFullName($this->faker->name)
+                ->setPseudo(mt_rand(0,1) === 1 ? $this->faker->firstName():'null')
+                ->setEmail($this->faker->email)
+                ->setPassword($this->hasher->hashPassword($user,'password'))
+                ->setRoles(['ROLE_USER']);
+                $manager->persist($user);
+            # code...
+        }
         $manager->flush();
     }
 }

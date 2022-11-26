@@ -69,12 +69,6 @@ class Recipe
         $this->createdAt= new \DateTimeImmutable();
         $this->updatedAt=new \DateTimeImmutable();
     }
-
-    public function setUpdatedAtValue(){
-        $this->updatedAt=new \DateTimeImmutable();
-
-    }
-
     public function getId(): ?int
     {
         return $this->id;

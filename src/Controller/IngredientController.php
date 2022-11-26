@@ -26,7 +26,7 @@ class IngredientController extends AbstractController
             10 /*limit per page*/
         );
 
-        return $this->render('ingredient/index.html.twig', [
+        return $this->render('pages/ingredient/index.html.twig', [
             'ingredients'=>$ingredients
         ]);
     }
@@ -49,7 +49,7 @@ class IngredientController extends AbstractController
 
             return $this->redirectToRoute('ingredient.alls');
         }
-        return $this->render("ingredient/add.html.twig",[
+        return $this->render("pages/ingredient/add.html.twig",[
             'form'=>$form->createView()
         ]);
     }
@@ -72,7 +72,7 @@ class IngredientController extends AbstractController
 
         
 
-        return $this->render('ingredient/edit.html.twig',[
+        return $this->render('pages/ingredient/edit.html.twig',[
             'form'=>$form->createView()
 
         ]);

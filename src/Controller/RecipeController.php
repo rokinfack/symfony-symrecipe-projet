@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Recipe;
 use App\Form\RecepeType;
 use App\Repository\RecipeRepository;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
@@ -24,7 +23,7 @@ class RecipeController extends AbstractController
             $request->query->getInt('page', 1), /*page number*/
             10 /*limit per page*/
         );
-        return $this->render('recipe/index.html.twig', [
+        return $this->render('pages/recipe/index.html.twig', [
             'recipes' => $recipes,
         ]);
     }
@@ -50,16 +49,20 @@ class RecipeController extends AbstractController
             return $this->redirectToRoute('recette.new');
         }
 
-        return $this->render('recipe/new.html.twig', [
+        return $this->render('pages/recipe/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+
     #[Route('/recette/update/{id}', name: 'recette.update', methods: ['GET', 'POST'])]
-    public function update(Recipe $recipe, ManagerRegistry $doctrine, Request $request): Response
+        public function update(Recipe $recipe, ManagerRegistry $doctrine, Request $request): Response
     {
+     
         $manager = $doctrine->getManager();
         
         $form = $this->createForm(RecepeType::class, $recipe);
+
+     
 
             $form->handleRequest($request);
     if ($form->isSubmitted() && $form->isValid()) {
@@ -76,13 +79,14 @@ class RecipeController extends AbstractController
     }
         $this->addFlash('warning', message: 'recette innexistante');
 
-        return $this->render('recipe/edit.html.twig', [
+        return $this->render('pages/recipe/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
     #[Route('/recette/delete/{id}', name: 'recette.delete')]
     public function delete(Recipe $recipe, EntityManagerInterface $manager): Response
     {
+
 
         if (!$recipe) {
             $this->addFlash('waning', message: 'la recette n\'existe pas');

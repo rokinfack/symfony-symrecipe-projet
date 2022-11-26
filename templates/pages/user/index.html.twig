@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+
+SymeRecipe - All Users
+    
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+<table>
+    <tr>
+    <th>id</td>
+    <th>Email</th>
+     <th>Pseudo</th> 
+     <th>Nom complet</th>
+     </tr>
+
+     {% for user in users %}
+     <tr>
+        <td> {{user.id}} </td>
+        <td> {{user.email}} </td>
+        <td> {{user.pseudo}} </td>
+        <td> {{user.fullName}} </td>
+     </tr>
+
+        
+     {% endfor %}
+
+     </table>
+</div>
+
+
+    
+{% endblock %}

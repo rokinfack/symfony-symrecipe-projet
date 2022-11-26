@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Repository;
-
 use App\Entity\Ingredient;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
